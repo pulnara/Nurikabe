@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group 'pl.edu.agh.iisg.to.nurikabe'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+mainClassName = 'pl.edu.agh.iisg.to.nurikabe.model.Nurikabe'
+
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.3.2")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
+    compile 'com.github.gwenn:sqlite-dialect:master'
+    compile 'org.hibernate:hibernate-core:5.1.0.Final'
+
+
+}
+
+jar {
+    baseName = 'nurikabe'
+    version =  '0.1.0'
+}
+
+task execute(type:JavaExec) {
+    main = mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter', 'junit-vintage'
+    }
+}
